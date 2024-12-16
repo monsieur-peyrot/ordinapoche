@@ -1,0 +1,69 @@
+# MOYENNE
+# Ce programme attend un nombre N puis une liste de N nombres sur le ruban d'entree
+# Il renvoie la moyenne entière des N nombres sur le ruban de sortie
+# ATTENTION : si la somme dépasse 999, le résultat sera incorrect (pb de dépassement)
+# L'adresse d'execution est 10
+# L'adresse 00 doit contenir la valeur 000, et l'adresse 01 la valeur 001
+# Le programme utilise les adresses memoires 02, 03, 04, 05 et 06
+# Le dividende est stocké en 02, le diviseur en 03, le quotient en 04 et le reste en 05
+# L'adresse 06 contient le nombre N de nombres
+# L'adresse 07 contient un compteur i allant de 1 à N
+# L'adresse 08 contient le nombre en cours de traitement
+# L'adresse 09 contient la valeur de la somme des nombres, puis la moyenne des N nombres
+
+# DATAS
+ADR 00
+VAL 000
+VAL 001
+
+# PROGRAMME PRINCIPAL
+ADR 10
+# Initialisation de la somme à 0 et du compteur i à 1
+CLA 00
+STO 09
+CLA 01
+STO 07
+# Lecture du nombre N de nombres
+INP 06
+# Adresse 15 : On calcule la valeur de N - i
+CLA 06
+SUB 07
+# Si le résultat est négatif, on passe au calcul de la moyenne
+TAC 26
+# On incrémente de 1 le compteur i
+CLA 07
+ADD 01
+STO 07
+# On lit une valeur sur le ruban d'entrée et on l'additionne à la somme
+INP 08
+CLA 09
+ADD 08
+STO 09
+# Et on recommence
+JMP 15
+# Adresse 26 : On recopie la somme et le nombre N dans les adresses 02 et 03
+CLA 09
+STO 02
+CLA 06
+STO 03
+# Début de la procédure de division : on initialise le quotient à 0
+CLA 00
+STO 04
+# Adresse 32 : on recopie le dividende dans le reste
+CLA 02
+STO 05
+# On enlève le diviseur au dividende
+SUB 03
+# Si le résultat est négatif (division finie), on saute à l'adresse 41
+TAC 41
+# Sinon on stocke la nouvelle valeur du dividende
+STO 02
+# On augmente le quotient de 1
+CLA 04
+ADD 01
+STO 04
+# puis on recommence
+JMP 32
+# Adresse 41 : on imprime quotient (la moyenne) sur le ruban de sortie
+OUT 04
+HRS

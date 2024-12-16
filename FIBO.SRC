@@ -1,0 +1,49 @@
+# FIBO
+# Ce programme renvoie les 16 premiers termes de la suite de Fibonacci sur le ruban de sortie
+# L'adresse d'execution est 10
+# L'adresse 00 doit contenir la valeur 000, l'adresse 01 la valeur 001 et l'adresse 02 la valeur 016
+# Le programme utilise les adresses memoires 03, 04, 05 et 06
+# L'adresse 03 contient le terme n°i
+# L'adresse 04 contient le terme n°i+1
+# L'adresse 05 contient le terme n°i+2
+# L'adresse 06 contient le compteur i
+
+# DATAS
+ADR 00
+VAL 000
+VAL 001
+VAL 014
+
+#PROG
+ADR 10
+# Initialisation du compteur et des deux premiers termes
+CLA 01
+STO 06
+STO 03
+OUT 03
+CLA 01
+STO 04
+OUT 04
+# Adresse 17 : Calcul du terme suivant
+CLA 03
+ADD 04
+STO 05
+# A-t-on fini la boucle ?
+CLA 02
+SUB 06
+# Si oui, on sort du programme
+TAC 32
+# Sinon on incrémente le compteur
+CLA 06
+ADD 01
+STO 06
+# On stocke les deux derniers termes
+CLA 04
+STO 03
+CLA 05
+STO 04
+OUT 04
+# Et on recommence
+JMP 17
+# Adresse 32 : fin du programme
+HRS

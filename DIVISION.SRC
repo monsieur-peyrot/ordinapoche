@@ -1,0 +1,39 @@
+# DIVISION EUCLIDIENNE
+# Ce programme attend deux nombres A et B sur le ruban d'entree
+# Il renvoie le quotient et le reste de la division euclidienne de A par B sur le ruban de sortie
+# L'adresse d'execution est 10
+# L'adresse 00 doit contenir la valeur 000, et l'adresse 01 la valeur 001
+# Le programme utilise les adresses memoires 02, 03, 04 et 05
+# Le dividende est stocké en 02, le diviseur en 03, le quotient en 04 et le reste en 05
+
+# DATAS
+ADR 00
+VAL 000
+VAL 001
+
+#PROG
+ADR 10
+INP 02
+INP 03
+# On initialise le quotient à zéro
+CLA 00
+STO 04
+# Adresse 14 : on recopie A dans le reste
+CLA 02
+STO 05
+# On enlève B à A
+SUB 03
+# Si le résultat est négatif (division finie), on saute à l'adresse 23
+TAC 23
+# Sinon on stocke la nouvelle valeur de A
+STO 02
+# On augmente le quotient de 1
+CLA 04
+ADD 01
+STO 04
+# puis on recommence
+JMP 14
+# Adresse 23 : on imprime quotient et reste sur le ruban de sortie
+OUT 04
+OUT 05
+HRS

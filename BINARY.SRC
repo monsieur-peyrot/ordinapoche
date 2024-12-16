@@ -1,0 +1,52 @@
+# BINARY
+# Ce programme attend un nombre décimal N sur le ruban d'entree
+# Il renvoie la représentation binaire du nombre sur le ruban de sortie
+# Attention : le premier bit fourni est le LSB
+# L'adresse d'execution est 10
+# L'adresse 00 doit contenir la valeur 000, l'adresse 01 la valeur 001 et l'adresse 02 la valeur 002
+# Le programme utilise les adresses memoires
+# Le dividende est stocké en 03, le diviseur en 04, le quotient en 05 et le reste en 06
+
+# DATAS
+ADR 00
+VAL 000
+VAL 001
+VAL 002
+
+#PROG
+ADR 10
+# Lecture du nombre N
+INP 03
+# Initialisation du diviseur à 2
+CLA 02
+STO 04
+# Adresse 13 : on initialise le quotient à zéro
+CLA 00
+STO 05
+# Adresse 15 : on recopie le dividende dans le reste
+CLA 03
+STO 06
+# On enlève le diviseur au dividende
+SUB 04
+# Si le résultat est négatif (division finie), on saute à l'adresse 24
+TAC 24
+# Sinon on stocke la nouvelle valeur du dividende
+STO 03
+# On augmente le quotient de 1
+CLA 05
+ADD 01
+STO 05
+# puis on recommence
+JMP 15
+# Adresse 24 : on imprime le reste sur le ruban de sortie
+OUT 06
+# Le quotient devient le nouveau dividende
+CLA 05
+STO 03
+# Le nouveau dividende est-il nul ? Si oui la conversion est finie.
+SUB 01
+TAC 31
+# Sinon on continue
+JMP 13
+# Adresse 31 : Sortie du programme
+HRS

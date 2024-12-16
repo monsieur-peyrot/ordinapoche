@@ -1,0 +1,80 @@
+# CONVERSION CELSIUS VERS FAHRENHEIT
+# Ce programme une température en degré Celsius sur le ruban d'entrée
+# Il renvoie la température en degré Fahrenheit sur le ruban de sortie
+# Attention : la température en Celsius doit etre au maximum de 111 degrés sinon il y a dépassement
+# L'adresse d'execution est 20
+# L'adresse 00 doit contenir la valeur 000, l'adresse 01 la valeur 001, l'adresse 02 la valeur 009, l'adresse 03 la valeur 005 et l'adresse 04 la valeur 032
+# Le programme utilise les adresses memoires 05, 06, 07, 08 et 09
+# L'adresse 05 contient la température en Celsius à convertir
+# Les adresses 06, 07 et 08 sont utilisées pour la MULTIPLICATION
+# Les adresses 06, 07, 08 et 09 sont utilisées pour la DIVISION
+
+# DATAS
+ADR 00
+VAL 000
+VAL 001
+VAL 009
+VAL 005
+VAL 032
+
+
+#PROG
+ADR 20
+INP 05
+
+# MULTIPLICATION
+CLA 05
+STO 06
+CLA 02
+STO 07
+# On met le résultat de la multiplication à zéro
+CLA 00
+STO 08
+# On diminue de 1 le multiplicateur
+CLA 07
+SUB 01
+STO 07
+# Adresse 30 : On ajoute le multiplicande au résultat de la multiplication
+CLA 08
+ADD 06
+STO 08
+# On diminue de 1 le multiplicateur
+CLA 07
+SUB 01
+# Si le résultat est négatif, on saute à l'adresse 38
+TAC 38
+# Sinon on stocke la nouvelle valeur du multiplicateur
+STO 07
+# et on recommence à l'adresse 30
+JMP 30
+
+# Adresse 38 : DIVISION
+
+CLA 03
+STO 07
+CLA 08
+STO 06
+# On initialise le quotient à zéro
+CLA 00
+STO 08
+# Adresse 44 : on recopie A dans le reste
+CLA 06
+STO 09
+# On enlève B à A
+SUB 07
+# Si le résultat est négatif (division finie), on saute à l'adresse xx
+TAC 53
+# Sinon on stocke la nouvelle valeur de A
+STO 06
+# On augmente le quotient de 1
+CLA 08
+ADD 01
+STO 08
+# puis on recommence
+JMP 44
+# Adresse 53 : on ajoute 32 au résultat et on l'imprime sur le ruban de sortie
+CLA 08
+ADD 04
+STO 08
+OUT 08
+HRS

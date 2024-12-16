@@ -1,0 +1,15 @@
+# PROGRAMME ADDITION
+
+# Ce programme attend deux nombres sur le ruban d'entrée
+# Il renvoie la somme des deux nombres sur le ruban de sortie
+# L'adresse d'exécution est 10
+# Le programme utilise les adresses mémoires 50, 51 et 52
+
+ADR 10
+INP 50
+INP 51
+CLA 50
+ADD 51
+STO 52
+OUT 52
+HRS

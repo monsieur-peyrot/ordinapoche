@@ -1,0 +1,35 @@
+# SIGMA
+# Ce programme attend un nombre N sur le ruban d'entree
+# Il renvoie la somme des nombres de 1 à N sur le ruban de sortie
+# L'adresse d'execution est 10
+# L'adresse 00 doit contenir la valeur 000, et l'adresse 01 la valeur 001
+# Le programme utilise les adresses memoires 02 et 03
+# L'adresse 02 contient le compteur i qui va de N à 0
+# L'adresse 03 contient le résultat du calcul
+
+# DATAS
+ADR 00
+VAL 000
+VAL 001
+
+#PROG
+ADR 10
+# On place N à l'adresse 02 et 0 à l'adresse 03
+INP 02
+CLA 00
+STO 03
+# Adresse 13 : On additionne la valeur du compteur au résultat
+CLA 03
+ADD 02
+STO 03
+# On diminue la valeur du compteur de 1
+CLA 02
+SUB 01
+# Si celui-ci est négatif, on sort de la boucle à l'adresse 21
+TAC 21
+# Sinon on stocke la nopuvelle valeur du compteur et on retourne à l'adresse 13
+STO 02
+JMP 13
+# Adresse 21 : on imprime le résultat sur le ruban de sortie
+OUT 03
+HRS

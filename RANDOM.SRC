@@ -1,0 +1,74 @@
+# RANDOM (test n°1)
+# Ce programme attend un nombre N et une "seed" R sur le ruban d'entree
+# Il renvoie N nombres pseudo aléatoires sur le ruban de sortie
+# L'adresse d'execution est 10
+# L'adresse 00 doit contenir la valeur 000, et l'adresse 01 la valeur 001
+# Le programme utilise les adresses memoires 02, 03, 04, 05, 06, 08 et 09
+# L'adresse 02 contient le nombre N de valeurs à générer 
+# L'adresse 03 contient un compteur i allant de 1 à N
+# Les adresses 04, 05 et 06 contiennent le multiplicande, le multiplicateur et le produit de la multiplication
+# L'adresse 08 contient l'increment Q
+# L'adresse 09 contient tout d'abord la "seed" R puis les différentes valeurs générées successives
+
+# DATAS
+ADR 00
+VAL 000
+VAL 001
+
+#PROG
+ADR 10
+# Lecture du nombre N
+INP 02
+# Lecture de la "seed" R
+INP 09
+# Initialisation du compteur i et de l'incrément Q à 1
+CLA 01
+STO 03
+STO 08
+# Adresse 15 : On calcule la valeur de N - i
+CLA 02
+SUB 03
+# Si le résultat est négatif, on sort de la boucle
+TAC 45
+# On incrémente de 1 le compteur i
+CLA 03
+ADD 01
+STO 03
+# Début de la multiplication pour calculer R**2 
+# On met le résultat de la multiplication (06) à zéro
+CLA 00
+STO 06
+# On place la valeur de 09 aux adresses 04 et 05 (multiplicande et multiplicateur)
+CLA 09
+STO 04
+STO 05
+# On diminue de 1 le multiplicateur (05)
+CLA 05
+SUB 01
+STO 05
+# Adresse 29 : On ajoute le multiplicande (04) au résultat de la multiplication (06)
+CLA 06
+ADD 04
+STO 06
+# On diminue de 1 le multiplicateur (05)
+CLA 05
+SUB 01
+# Si le résultat est négatif, on saute à l'adresse 37
+TAC 37
+# Sinon on stocke la nouvelle valeur du multiplicateur
+STO 05
+# et on recommence à l'adresse 29
+JMP 29
+# Adresse 37 : on stocke R**2 en 09, on ajoute Q, puis on imprime la valeur sur le ruban de sortie
+CLA 06
+ADD 08
+STO 09
+OUT 09
+# On incrémente Q
+CLA 08
+ADD 01
+STO 08
+# Et on repart pour un tour
+JMP 15
+# Adresse 45 : Fin du programme
+HRS

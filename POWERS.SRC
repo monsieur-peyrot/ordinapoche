@@ -1,0 +1,102 @@
+# POWERS
+
+# Ce programme renvoie la liste des N, N**2 et N**3 pour N = 0 à 9 sur le ruban de sortie
+# L'adresse d'execution est 10
+# L'adresse 00 doit contenir la valeur 000, l'adresse 01 la valeur 001, l'adresse 02 la valeur 009
+# Le programme utilise les adresses memoires 
+# L'adresse 03 contient N
+# L'adresse 04 contient N**2
+# L'adresse 05 contient N**3
+# Pour le sous-programme MULTIPLICATION :
+# L'adresse 80 contient le premier nombre à multiplier
+# L'adresse 81 contient le deuxième nombre à multiplier
+# L'adresse 82 contient le résultat de la multiplication
+
+# DATAS
+ADR 00
+VAL 000
+VAL 001
+VAL 009
+
+# PROG PRINCIPAL
+ADR 10
+# Initialisations
+CLA 00
+STO 03
+STO 04
+STO 05
+STO 06
+# Adresse 15 : on imprime N sur le ruban de sortie
+OUT 03
+# On met la valeur de N en 80 (premier nombre à multiplier)
+CLA 03
+STO 80
+# On met la valeur de N en 81 (deuxième nombre à multiplier)
+STO 81
+# On met le résultat de la multiplication (82) à zéro
+CLA 00
+STO 82
+# On diminue de 1 le multiplicateur (81)
+CLA 81
+SUB 01
+STO 81
+# Adresse 24 : On ajoute le multiplicande (80) au résultat de la multiplication (82)
+CLA 82
+ADD 80
+STO 82
+# On diminue de 1 le multiplicateur (81)
+CLA 81
+SUB 01
+# Si le résultat est négatif, on saute à l'adresse 32
+TAC 32
+# Sinon on stocke la nouvelle valeur du multiplicateur
+STO 81
+# et on recommence à l'adresse 24
+JMP 24
+# Adresse 32 : On stocke le résultat N**2 en 04 et on l'imprime sur le ruban de sortie
+CLA 82
+STO 04
+OUT 04
+# On met la valeur de N**2 en 80 (premier nombre à multiplier)
+CLA 04
+STO 80
+# On met la valeur de N en 81 (deuxième nombre à multiplier)
+CLA 03
+STO 81
+# On met le résultat de la multiplication (82) à zéro
+CLA 00
+STO 82
+# On diminue de 1 le multiplicateur (81)
+CLA 81
+SUB 01
+STO 81
+# Adresse 44 : On ajoute le multiplicande (80) au résultat de la multiplication (82)
+CLA 82
+ADD 80
+STO 82
+# On diminue de 1 le multiplicateur (81)
+CLA 81
+SUB 01
+# Si le résultat est négatif, on saute à l'adresse 52
+TAC 52
+# Sinon on stocke la nouvelle valeur du multiplicateur
+STO 81
+# et on recommence à l'adresse 44
+JMP 44
+# Adresse 52 : On stocke le résultat N**2 en 05 et on l'imprime sur le ruban de sortie
+CLA 82
+STO 05
+OUT 05
+# On incrémente de 1 le compteur
+CLA 03
+ADD 01
+STO 03
+# On calcule 9 - N
+CLA 02
+SUB 03
+# Si le résultat est négatif, on saute à l'adresse 62
+TAC 62
+# Sinon, on recommence à l'adresse 15
+JMP 15
+# Adresse 62 : fin du programme
+HRS

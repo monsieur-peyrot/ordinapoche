@@ -1,0 +1,79 @@
+# PUISSANCE
+
+# Ce programme attend deux nombres A et B sur le ruban d'entree
+# Il renvoie le résultat de A ** B  sur le ruban de sortie
+# L'adresse d'execution est 10
+# L'adresse 00 doit contenir la valeur 000, l'adresse 01 la valeur 001
+# Le programme utilise les adresses memoires 02, 03, 04, 05, 60, 61 et 62
+# L'adresse 02 contient le nombre A
+# L'adresse 03 contient le nombre B
+# L'adresse 04 contient le résultat du calcul
+# L'adresse 05 contient un compteur qui va de 1 à B
+# Pour le sous-programme MULTIPLICATION :
+# L'adresse 60 contient le premier nombre à multiplier
+# L'adresse 61 contient le deuxième nombre à multiplier
+# L'adresse 62 contient le résultat de la multiplication
+
+# DATAS
+ADR 00
+VAL 000
+VAL 001
+
+# PROG PRINCIPAL
+ADR 10
+INP 02
+INP 03
+# On initialise le résultat et le compteur à 1
+CLA 01
+STO 04
+STO 05
+# Adresse 15 : on met le résultat actuel en 60 (premier nombre à multiplier)
+CLA 04
+STO 60
+# On met le nombre A en 61 (deuxième nombre à multiplier)
+CLA 02
+STO 61
+# On appelle le sous-programme MULTIPLICATION
+JMP 40
+# Adresse 20 : on stocke le résultat de la multiplication dans le résultat
+CLA 62
+STO 04
+# On incrémente de 1 le compteur
+CLA 05
+ADD 01
+STO 05
+# On calcule B - compteur
+CLA 03
+SUB 05
+# Si le résultat est négatif, on saute à l'adresse 29
+TAC 29
+# Sinon, on recommence à l'adresse 15
+JMP 15
+# Adresse 29 : on écrit le résultat sur le ruban de sortie
+OUT 04
+HRS
+
+# SOUS-PROGRAMME MULTIPLICATION
+ADR 40
+# On met le résultat de la multiplication (62) à zéro
+CLA 00
+STO 62
+# On diminue de 1 le multiplicateur (61)
+CLA 61
+SUB 01
+STO 61
+# Adresse 45 : On ajoute le multiplicande (60) au résultat de la multiplication (62)
+CLA 62
+ADD 60
+STO 62
+# On diminue de 1 le multiplicateur (61)
+CLA 61
+SUB 01
+# Si le résultat est négatif, on saute à l'adresse 53
+TAC 53
+# Sinon on stocke la nouvelle valeur du multiplicateur
+STO 61
+# et on recommence à l'adresse 45
+JMP 45
+# On retourne au programme principal, à l'adresse 20
+JMP 20
