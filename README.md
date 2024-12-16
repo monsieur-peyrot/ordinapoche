@@ -39,3 +39,7 @@ VAL : définit une valeur numérique
 
 La seule différence avec l'Ordinapoche originel est que la mémoire ne peut contenir que des nombres positifs.
 
+Les fichiers .SRC contiennent un certain nombre de fichiers sources, les fichiers .ORD contiennent un dump de la mémoire de l'Ordinapoche.
+
+
+
